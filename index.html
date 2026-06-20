@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Colombia Decide 2026 · Cepeda vs. De la Espriella · Calculadora de candidato</title>
+<meta name="description" content="Descubre con cual candidato presidencial coincides. Calculadora interactiva, comparacion de propuestas y trayectorias: Cepeda vs. De la Espriella, segunda vuelta 2026.">
+<meta property="og:title" content="Colombia Decide 2026 · ¿Con quien coincides?">
+<meta property="og:description" content="Calculadora de candidato, comparacion de propuestas y trayectorias para la segunda vuelta presidencial de Colombia.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Archivo+Expanded:wght@600;700;800;900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#3d3a33;--ink-soft:#777368;
+  --paper:#f0ede4;--paper-2:#f8f6f0;--card:#ffffff;
+  --line:#ddd9ce;--line-strong:#c4bfb2;
+  --cep:#1a8f7f;--cep-ink:#0e6b5e;--cep-light:#dff1ed;--cep-soft:#f0f9f7;
+  --esp:#c98a2e;--esp-ink:#a06f1a;--esp-light:#f8edda;--esp-soft:#fdf8f0;
+  --mark:#c04030;--mark-light:#fbe8e5;
+  --radius:5px;--maxw:1120px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:"Newsreader",Georgia,serif;font-size:18px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,h4{font-family:"Archivo",sans-serif}
+a{color:inherit}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+::selection{background:var(--mark);color:#fff}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* topbar */
+.topbar{position:sticky;top:0;z-index:40;background:rgba(240,237,228,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+.brand{font-family:"Archivo Expanded",sans-serif;font-weight:900;font-size:16px;display:flex;align-items:center;gap:10px}
+.brand .dot{width:13px;height:13px;border-radius:50%;background:conic-gradient(from 220deg,var(--cep) 0 50%,var(--esp) 50% 100%);box-shadow:0 0 0 2px var(--ink)}
+.navlinks{display:flex;gap:24px}
+.navlinks a{font-family:"Archivo",sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-soft);text-decoration:none;border-bottom:2px solid transparent;padding-bottom:2px}
+.navlinks a:hover{color:var(--ink);border-color:var(--mark)}
+@media(max-width:760px){.navlinks{display:none}}
+
+/* hero */
+.hero{padding:54px 0 30px;position:relative;z-index:2;background:linear-gradient(155deg,var(--cep-soft) 0%,var(--paper) 35%,var(--paper) 65%,var(--esp-soft) 100%)}
+.datespill{display:inline-flex;align-items:center;gap:9px;border:1.5px solid var(--ink);border-radius:99px;padding:7px 15px;font-family:"Archivo",sans-serif;font-size:13px;font-weight:700;background:var(--card);margin-bottom:22px}
+.datespill .pulse{width:8px;height:8px;border-radius:50%;background:var(--mark);position:relative}
+.datespill .pulse::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:1.5px solid var(--mark);animation:pulse 2s ease-out infinite}
+@keyframes pulse{0%{transform:scale(.6);opacity:1}100%{transform:scale(2.2);opacity:0}}
+.hero h1{font-family:"Archivo Expanded",sans-serif;font-weight:900;line-height:.92;letter-spacing:-.015em;font-size:clamp(38px,8.5vw,80px);text-transform:uppercase}
+.hero h1 .a{color:var(--cep-ink)}.hero h1 .b{color:var(--esp-ink)}
+.hero h1 .vs{display:inline-block;font-family:"Newsreader",serif;font-style:italic;text-transform:none;font-weight:500;font-size:clamp(20px,3.6vw,30px);letter-spacing:0;color:var(--mark);vertical-align:middle;margin:0 .15em}
+
+.summary{margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:0;border:1.5px solid var(--ink);border-radius:8px;overflow:hidden;box-shadow:5px 5px 0 var(--ink)}
+.summary .col{padding:22px 24px}.summary .col+.col{border-left:1.5px solid var(--ink)}
+.summary .col.cep{background:var(--cep-light)}.summary .col.esp{background:var(--esp-light)}
+.summary .nm{font-family:"Archivo Expanded",sans-serif;font-weight:800;font-size:clamp(18px,2.6vw,23px);line-height:1.02}
+.summary .pty{font-family:"Archivo",sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin:6px 0 12px}
+.summary .cep .pty{color:var(--cep-ink)}.summary .esp .pty{color:var(--esp-ink)}
+.summary .col p{font-size:16px;line-height:1.5;color:var(--ink)}
+.summary .hl{background:linear-gradient(transparent 60%,rgba(192,64,48,.18) 60%);font-weight:500}
+@media(max-width:680px){.summary{grid-template-columns:1fr;box-shadow:4px 4px 0 var(--ink)}.summary .col+.col{border-left:none;border-top:1.5px solid var(--ink)}}
+
+/* section frame */
+section{padding:60px 0;position:relative;z-index:2;border-top:1px solid var(--line)}
+.sec-head{display:grid;grid-template-columns:auto 1fr;gap:6px 18px;margin-bottom:30px;align-items:start}
+.sec-head .num{font-family:"Archivo Expanded",sans-serif;font-weight:900;color:var(--mark);font-size:14px;border:1.5px solid var(--mark);border-radius:99px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;grid-row:span 2}
+.sec-head h2{font-family:"Archivo Expanded",sans-serif;font-weight:800;text-transform:uppercase;font-size:clamp(23px,4.2vw,36px);line-height:.98;letter-spacing:-.01em}
+.sec-head p{color:var(--ink-soft);max-width:72ch;font-size:16.5px}
+
+/* calculator */
+#calc{background:linear-gradient(180deg,var(--paper) 0%,var(--paper-2) 100%);border-top:none;padding-top:34px}
+.calc-lead{text-align:center;max-width:640px;margin:0 auto 26px}
+.calc-lead .badge{display:inline-block;font-family:"Archivo",sans-serif;font-weight:800;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--mark);margin-bottom:12px}
+.calc-lead h2{font-family:"Archivo Expanded",sans-serif;font-weight:900;text-transform:uppercase;font-size:clamp(28px,6vw,52px);line-height:.95;letter-spacing:-.015em}
+.calc-lead p{margin-top:14px;color:var(--ink-soft);font-size:17px}
+.calc-shell{max-width:760px;margin:0 auto;border:2px solid var(--ink);border-radius:12px;background:var(--card);overflow:hidden;box-shadow:6px 6px 0 var(--ink)}
+.calc-top{padding:18px 24px;border-bottom:2px solid var(--ink);display:flex;align-items:center;gap:20px;flex-wrap:wrap;background:var(--paper-2)}
+.balance{flex:0 0 auto}
+.progress-wrap{flex:1 1 220px;min-width:170px}
+.progress-meta{display:flex;justify-content:space-between;font-family:"Archivo",sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft);margin-bottom:7px}
+.progress{height:9px;background:var(--paper);border:1.5px solid var(--line-strong);border-radius:99px;overflow:hidden}
+.progress .fill{height:100%;width:0;background:var(--ink);transition:width .35s ease;border-radius:99px}
+.tally{display:flex;gap:8px;font-family:"Archivo",sans-serif;font-weight:800;font-size:13px;margin-top:11px}
+.tally .t{padding:5px 11px;border-radius:99px;border:1.5px solid}
+.tally .tc{background:var(--cep-light);color:var(--cep-ink);border-color:var(--cep)}
+.tally .te{background:var(--esp-light);color:var(--esp-ink);border-color:var(--esp)}
+
+.qstage{padding:38px 30px 30px}
+.qcat{font-family:"Archivo",sans-serif;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:var(--mark);margin-bottom:14px;display:flex;align-items:center;gap:9px}
+.qcat::before{content:"";width:22px;height:2px;background:var(--mark)}
+.qtext{font-family:"Archivo",sans-serif;font-weight:800;font-size:clamp(21px,3.6vw,28px);line-height:1.12;margin-bottom:26px;letter-spacing:-.01em}
+.opts{display:grid;gap:14px}
+.opt{display:flex;gap:15px;align-items:flex-start;text-align:left;width:100%;padding:19px 21px;border:2px solid var(--line-strong);background:var(--card);border-radius:8px;cursor:pointer;font-family:"Newsreader",serif;font-size:18px;line-height:1.4;color:var(--ink);transition:border-color .14s,background .14s,transform .07s,box-shadow .14s}
+.opt:hover{border-color:var(--ink);background:#fff;box-shadow:3px 3px 0 var(--ink);transform:translate(-1px,-1px)}
+.opt:active{transform:translate(1px,1px);box-shadow:0 0 0}
+.opt .box{flex:0 0 28px;height:28px;border:2px solid var(--ink);border-radius:6px;display:flex;align-items:center;justify-content:center;margin-top:1px;transition:.15s}
+.opt .box svg{width:19px;height:19px;opacity:0;transform:scale(.4);transition:.18s}
+.opt.sel{border-color:var(--ink);background:#fff;box-shadow:3px 3px 0 var(--ink)}
+.opt.sel .box{background:var(--ink)}
+.opt.sel .box svg{opacity:1;transform:scale(1)}
+.qnav{display:flex;justify-content:space-between;align-items:center;margin-top:28px}
+.qnav button{font-family:"Archivo",sans-serif;font-weight:800;font-size:14px;background:none;border:none;cursor:pointer;color:var(--ink-soft);padding:8px 4px;text-transform:uppercase;letter-spacing:.04em}
+.qnav button:hover{color:var(--ink)}
+.qnav button[disabled]{opacity:.32;cursor:default}
+.qnav .skip{margin-left:auto;margin-right:16px;text-decoration:underline;text-transform:none;letter-spacing:0;font-family:"Newsreader",serif;font-style:italic;font-weight:500}
+
+.results{display:none;padding:34px 30px 42px}
+.results.show{display:block;animation:fadeUp .5s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.res-top{text-align:center}
+.res-eyebrow{font-family:"Archivo",sans-serif;text-transform:uppercase;letter-spacing:.16em;font-size:12px;font-weight:700;color:var(--ink-soft)}
+.res-name{font-family:"Archivo Expanded",sans-serif;font-weight:900;text-transform:uppercase;font-size:clamp(30px,7.5vw,58px);line-height:.98;margin:10px 0 6px;letter-spacing:-.02em}
+.res-name.cep{color:var(--cep-ink)}.res-name.esp{color:var(--esp-ink)}.res-name.tie{color:var(--ink)}
+.res-score{font-family:"Archivo",sans-serif;font-size:15px;font-weight:600;color:var(--ink-soft)}
+.reasons{margin:36px auto 0;max-width:700px}
+.reasons h4{font-family:"Archivo",sans-serif;text-transform:uppercase;letter-spacing:.08em;font-size:13px;font-weight:800;color:var(--ink-soft);margin-bottom:6px}
+.reasons .rsub{font-style:italic;color:var(--ink-soft);font-size:15px;margin-bottom:16px}
+.reason{display:grid;grid-template-columns:130px 1fr;gap:12px;padding:13px 0;border-bottom:1px dotted var(--line);font-size:16px;align-items:start}
+.reason .pill{font-family:"Archivo",sans-serif;font-weight:800;font-size:10px;text-transform:uppercase;letter-spacing:.05em;padding:5px 0;border-radius:99px;text-align:center}
+.reason .pill.cep{background:var(--cep-light);color:var(--cep-ink)}
+.reason .pill.esp{background:var(--esp-light);color:var(--esp-ink)}
+.reason .pill.skip{background:var(--paper);color:var(--ink-soft);border:1px solid var(--line-strong)}
+.reason .qt{font-family:"Archivo",sans-serif;font-weight:700;font-size:12px;color:var(--ink-soft);display:block;margin-bottom:3px;text-transform:uppercase;letter-spacing:.04em}
+.reason .rtxt{color:var(--ink)}
+.res-actions{margin-top:32px;display:flex;gap:13px;justify-content:center;flex-wrap:wrap}
+
+.btn{font-family:"Archivo",sans-serif;font-weight:800;font-size:15px;text-decoration:none;border:2px solid var(--ink);padding:13px 24px;border-radius:var(--radius);background:var(--ink);color:var(--paper);cursor:pointer;display:inline-flex;align-items:center;gap:9px;transition:transform .08s,box-shadow .12s;text-transform:uppercase;letter-spacing:.03em}
+.btn:hover{box-shadow:4px 4px 0 var(--mark);transform:translate(-1px,-1px)}
+.btn:active{transform:translate(1px,1px);box-shadow:0 0 0}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{box-shadow:4px 4px 0 var(--ink)}
+
+/* carousel */
+.carousel-outer{position:relative}
+.carousel{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding:8px 2px 20px;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+.carousel::-webkit-scrollbar{height:8px}.carousel::-webkit-scrollbar-thumb{background:var(--line-strong);border-radius:8px}
+.post{scroll-snap-align:center;flex:0 0 clamp(290px,84vw,400px);aspect-ratio:4/5;border:2px solid var(--ink);border-radius:10px;background:var(--card);padding:26px;display:flex;flex-direction:column;overflow:hidden;box-shadow:5px 5px 0 var(--ink)}
+.post .tag{font-family:"Archivo",sans-serif;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:var(--mark)}
+.post h3{font-family:"Archivo Expanded",sans-serif;font-weight:900;text-transform:uppercase;line-height:.98;margin-top:13px;font-size:clamp(23px,5vw,31px);letter-spacing:-.01em}
+.post .sub{font-style:italic;color:var(--ink-soft);margin-top:11px;font-size:16px}
+.post .body{margin-top:auto;font-size:15.5px}
+.post .foot{margin-top:16px;font-family:"Archivo",sans-serif;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);border-top:1.5px solid var(--line);padding-top:11px;display:flex;justify-content:space-between}
+.post.accent-cep{background:var(--cep-light);border-color:var(--cep);box-shadow:5px 5px 0 var(--cep-ink)}
+.post.accent-esp{background:var(--esp-light);border-color:var(--esp);box-shadow:5px 5px 0 var(--esp-ink)}
+.post .vsrow{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1.5px solid var(--line-strong);border-radius:6px;overflow:hidden;margin-top:6px}
+.post .vsrow>div{padding:11px 13px;font-size:14px;line-height:1.4}
+.post .vsrow .h{font-family:"Archivo",sans-serif;font-weight:800;text-transform:uppercase;font-size:11px;letter-spacing:.05em;padding-bottom:4px}
+.post .vsrow .c{background:var(--cep-light)}.post .vsrow .c .h{color:var(--cep-ink)}
+.post .vsrow .e{background:var(--esp-light)}.post .vsrow .e .h{color:var(--esp-ink)}
+.post ul{list-style:none;margin-top:8px}
+.post li{padding:7px 0;border-bottom:1px dotted var(--line);font-size:14.5px;display:flex;gap:9px;line-height:1.35}
+.post li .yr{font-family:"Archivo",sans-serif;font-weight:800;color:var(--mark);flex:0 0 44px}
+.cbar{display:flex;align-items:center;gap:14px;margin-top:14px}
+.arrows{display:flex;gap:9px}
+.arrows button{width:44px;height:44px;border:2px solid var(--ink);background:var(--card);border-radius:50%;cursor:pointer;font-size:19px;line-height:1;transition:.1s}
+.arrows button:hover{background:var(--ink);color:var(--paper)}
+.dots{display:flex;gap:7px}
+.dots i{width:8px;height:8px;border-radius:50%;background:var(--line-strong);cursor:pointer;transition:.15s}
+.dots i.on{background:var(--ink);transform:scale(1.4)}
+.hint{font-family:"Archivo",sans-serif;font-size:12px;font-weight:700;color:var(--ink-soft);margin-left:auto;text-transform:uppercase;letter-spacing:.06em}
+
+/* tables */
+.scroller{overflow-x:auto;border:2px solid var(--ink);border-radius:8px;box-shadow:5px 5px 0 var(--ink);-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;min-width:700px;background:var(--card);font-size:15px}
+th,td{padding:14px 16px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+thead th{font-family:"Archivo",sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.04em;font-size:12px;position:sticky;top:0;background:var(--ink);color:var(--paper);border-bottom:none}
+thead th.cep{color:#7fd9c8} thead th.esp{color:#f0b870}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:nth-child(even){background:rgba(0,0,0,.015)}
+td.axis{font-family:"Archivo",sans-serif;font-weight:800;font-size:13px;white-space:nowrap}
+.yrcell{font-family:"Archivo Expanded",sans-serif;font-weight:800;color:var(--mark);white-space:nowrap}
+.score{font-family:"Archivo Expanded",sans-serif;font-weight:900;text-align:center;font-size:18px}
+.score.one{color:var(--cep)}.score.zero{color:var(--line-strong)}
+.tbl-hint{font-family:"Archivo",sans-serif;font-size:12px;font-weight:700;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;display:none}
+@media(max-width:720px){.tbl-hint{display:block}}
+.subsec{margin-top:44px}
+.subsec h3{font-family:"Archivo",sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.03em;font-size:18px;margin-bottom:6px}
+.subsec h3 .b{color:var(--mark)}
+.subsec .sd{color:var(--ink-soft);max-width:72ch;margin-bottom:16px;font-size:16px}
+.clients{display:grid;grid-template-columns:repeat(auto-fill,minmax(245px,1fr));gap:15px;margin-top:16px}
+.client{border:1.5px solid var(--line-strong);border-radius:8px;padding:15px 17px;background:var(--card);transition:.12s}
+.client:hover{border-color:var(--ink);box-shadow:3px 3px 0 var(--ink);transform:translate(-1px,-1px)}
+.client .nm{font-family:"Archivo",sans-serif;font-weight:800;font-size:15px}
+.client .st{font-family:"Archivo",sans-serif;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;padding:3px 9px;border-radius:99px;display:inline-block;margin:7px 0 9px}
+.st.cond{background:#f8dede;color:#a03028}.st.acus{background:#f8edda;color:#8a6a1e}.st.victim{background:var(--cep-light);color:var(--cep-ink)}.st.preclu{background:#eae8e0;color:var(--ink-soft)}
+.client p{font-size:14px;color:var(--ink-soft);margin:0;line-height:1.45}
+.chrono{list-style:none;border-left:2.5px solid var(--line-strong);margin-left:8px;padding-left:22px}
+.chrono li{position:relative;padding:9px 0}
+.chrono li::before{content:"";position:absolute;left:-30px;top:15px;width:12px;height:12px;border-radius:50%;background:var(--mark);border:2.5px solid var(--paper)}
+.chrono .d{font-family:"Archivo",sans-serif;font-weight:800;font-size:13px;color:var(--mark)}
+.aff{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:680px){.aff{grid-template-columns:1fr}}
+.affcol{border:2px solid var(--ink);border-radius:10px;overflow:hidden;box-shadow:5px 5px 0 var(--ink)}
+.affcol header{padding:15px 19px;font-family:"Archivo Expanded",sans-serif;font-weight:900;text-transform:uppercase;font-size:16px;color:#fff}
+.affcol.cep header{background:var(--cep-ink)}.affcol.esp header{background:var(--esp-ink)}
+.affcol .grp{padding:13px 19px;border-bottom:1px solid var(--line);background:var(--card)}
+.affcol .grp:last-child{border-bottom:none}
+.affcol .gl{font-family:"Archivo",sans-serif;font-weight:800;text-transform:uppercase;font-size:11px;letter-spacing:.06em;color:var(--ink-soft);margin-bottom:5px}
+.affcol .gv{font-size:15px;line-height:1.45}
+.center-note{margin-top:20px;border:2px dashed var(--line-strong);border-radius:10px;padding:18px 20px;background:var(--card);font-size:16px}
+.center-note b{font-family:"Archivo",sans-serif}
+.srcgrid{columns:2;column-gap:28px}
+@media(max-width:680px){.srcgrid{columns:1}}
+.srcgrid p{break-inside:avoid;margin-bottom:13px;font-size:14px;color:var(--ink-soft)}
+.srcgrid a{color:var(--cep-ink);word-break:break-word;font-weight:600}
+.disc{background:var(--esp-soft);border-top:none}
+.disc p{max-width:76ch;margin-bottom:15px;font-size:16.5px;color:var(--ink-soft)}
+.disc strong{color:var(--ink)}
+footer{padding:44px 0;text-align:center;font-family:"Archivo",sans-serif;font-size:13px;color:var(--ink-soft);z-index:2;position:relative}
+footer .brand{justify-content:center;margin-bottom:12px;color:var(--ink)}
+.rv{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important}.rv{opacity:1;transform:none;transition:none}.res-bar .v,.progress .fill,.opt,.btn{transition:none}.datespill .pulse::after{display:none}}
+
+/* ============================================================
+   RESPONSIVE — celulares
+   ============================================================ */
+@media(max-width:760px){html,body{overflow-x:hidden}}
+
+@media(max-width:900px){
+  .wrap{padding:0 18px}
+  section{padding:48px 0}
+  .hero{padding:42px 0 26px}
+  .calc-shell{box-shadow:5px 5px 0 var(--ink)}
+  .qstage{padding:30px 22px 26px}
+  .results{padding:28px 22px 36px}
+}
+
+@media(max-width:680px){
+  body{font-size:16.5px;line-height:1.5}
+  .wrap{padding:0 15px}
+  section{padding:40px 0}
+  .topbar .wrap{height:52px}
+  .brand{font-size:14px}.brand .dot{width:11px;height:11px}
+
+  .hero{padding:34px 0 22px}
+  .hero h1{font-size:clamp(34px,12vw,52px);line-height:.95}
+  .hero h1 .vs{display:block;margin:.1em 0;font-size:clamp(17px,5vw,22px)}
+  .datespill{font-size:12px;padding:6px 13px;margin-bottom:18px}
+  .summary{margin-top:20px}.summary .col{padding:18px 18px}.summary .col p{font-size:15.5px}
+
+  .sec-head{gap:5px 12px;margin-bottom:22px}
+  .sec-head .num{width:30px;height:30px;font-size:13px}
+  .sec-head p{font-size:15.5px}
+
+  #calc{padding-top:26px}
+  .calc-lead{margin-bottom:22px}.calc-lead p{font-size:16px}
+  .calc-shell{border-radius:10px;box-shadow:4px 4px 0 var(--ink)}
+  .calc-top{flex-direction:column;align-items:stretch;gap:14px;padding:16px 18px}
+  .balance{align-self:center}
+  .progress-wrap{flex:1 1 auto;min-width:0;width:100%}
+  .tally{justify-content:center}
+  .qstage{padding:26px 18px 24px}
+  .qtext{font-size:clamp(19px,5.2vw,23px);margin-bottom:22px}
+  .opts{gap:12px}
+  .opt{padding:16px 16px;font-size:16.5px;gap:13px}
+  .opt .box{flex:0 0 26px;height:26px}
+  .opt:hover{transform:none;box-shadow:2px 2px 0 var(--ink)}
+  .opt.sel{box-shadow:2px 2px 0 var(--ink)}
+  .qnav{flex-wrap:wrap;gap:10px;margin-top:22px}
+  .qnav button{font-size:13px;padding:8px 2px}
+  .qnav .skip{order:3;flex-basis:100%;text-align:center;margin:4px 0 0}
+
+  .results{padding:26px 18px 32px}
+  .res-name{font-size:clamp(28px,9vw,42px)}
+  .reasons{margin-top:28px}
+  .reason{grid-template-columns:1fr;gap:7px;padding:14px 0}
+  .reason .pill{justify-self:start;padding:5px 12px;font-size:10px}
+  .res-actions{flex-direction:column;gap:10px}
+  .res-actions .btn{width:100%;justify-content:center}
+
+  .carousel{gap:14px;padding:6px 2px 16px}
+  .post{flex-basis:clamp(250px,88vw,340px);padding:22px;box-shadow:4px 4px 0 var(--ink)}
+  .post.accent-cep{box-shadow:4px 4px 0 var(--cep-ink)}
+  .post.accent-esp{box-shadow:4px 4px 0 var(--esp-ink)}
+  .post h3{font-size:clamp(22px,6.5vw,28px)}
+  .arrows button{width:42px;height:42px}.hint{font-size:11px}
+
+  .subsec{margin-top:34px}
+  .subsec h3{font-size:16px}.subsec .sd{font-size:15px}
+  .clients{grid-template-columns:1fr;gap:12px}
+  .aff{gap:16px}.center-note{padding:16px;font-size:15px}
+  .chrono{padding-left:18px;margin-left:6px}.chrono li::before{left:-26px}
+  .srcgrid{columns:1}.disc p{font-size:15.5px}
+  footer{padding:36px 0}
+}
+
+@media(max-width:400px){
+  .wrap{padding:0 13px}
+  .hero h1{font-size:clamp(30px,11.5vw,40px)}
+  .summary .col{padding:16px 15px}
+  .calc-lead h2{font-size:clamp(25px,8vw,34px)}
+  .qstage{padding:22px 15px 22px}.qtext{font-size:18px}
+  .opt{padding:15px 14px;font-size:16px}
+  .calc-top{padding:14px}
+  .post{padding:19px;flex-basis:90vw}.post h3{font-size:23px}
+  .qnav button{font-size:12.5px}
+  .res-name{font-size:clamp(25px,9vw,34px)}
+}
+
+@media(hover:none){
+  .opt:hover{border-color:var(--line-strong);background:var(--card);box-shadow:none;transform:none}
+  .btn:hover{box-shadow:none;transform:none}
+  .client:hover{border-color:var(--line-strong);box-shadow:none;transform:none}
+  .arrows button:hover{background:var(--card);color:var(--ink)}
+}
+
+/* ============================================================
+   TABLAS -> TARJETAS APILADAS EN MOVIL
+   ============================================================ */
+@media(max-width:680px){
+  .tbl-hint{display:none}
+  .scroller{overflow:visible;border:none;border-radius:0;box-shadow:none;background:transparent}
+
+  .t-post,.t-bin,.t-time{min-width:0;width:100%;background:transparent;font-size:16px}
+  .t-post thead,.t-bin thead,.t-time thead{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .t-post tr,.t-bin tr,.t-time tr{display:block;background:var(--card);border:2px solid var(--ink);border-radius:10px;box-shadow:4px 4px 0 var(--ink);margin-bottom:18px;overflow:hidden}
+  .t-post tbody tr:nth-child(even),.t-bin tbody tr:nth-child(even),.t-time tbody tr:nth-child(even){background:var(--card)}
+  .t-post td,.t-bin td,.t-time td{display:block;border:none;padding:0;width:auto;white-space:normal}
+
+  /* POSTURAS y TRAYECTORIAS */
+  .t-post td.axis,.t-time td.yrcell{background:var(--ink);color:var(--paper);font-family:"Archivo Expanded",sans-serif;font-weight:800;letter-spacing:.01em;font-size:14px;padding:12px 16px;white-space:normal;text-transform:uppercase}
+  .t-time td.yrcell{color:#f0b870}
+  .t-post td:not(.axis),.t-time td:not(.yrcell){padding:14px 16px;border-top:1px solid var(--line)}
+  .t-post td:not(.axis)::before,.t-time td:not(.yrcell)::before{content:attr(data-label);display:block;font-family:"Archivo",sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.05em;font-size:11px;margin-bottom:6px}
+  .t-post td[data-label="Ivan Cepeda"]::before,.t-time td[data-label="Ivan Cepeda"]::before{color:var(--cep-ink)}
+  .t-post td[data-label="A. de la Espriella"]::before,.t-time td[data-label="A. de la Espriella"]::before{color:var(--esp-ink)}
+  .t-post td[data-label="Ivan Cepeda"],.t-time td[data-label="Ivan Cepeda"]{box-shadow:inset 4px 0 0 var(--cep)}
+  .t-post td[data-label="A. de la Espriella"],.t-time td[data-label="A. de la Espriella"]{box-shadow:inset 4px 0 0 var(--esp)}
+
+  /* BINARIA */
+  .t-bin td[data-label="Pregunta"]{background:var(--ink);color:var(--paper);font-family:"Archivo",sans-serif;font-weight:700;font-size:15px;line-height:1.3;padding:13px 16px}
+  .t-bin td[data-label="Pregunta"] a{color:#f0b870}
+  .t-bin td.score{display:inline-block;width:50%;text-align:center;padding:12px 8px 14px;vertical-align:top;border-top:1px solid var(--line);font-size:30px}
+  .t-bin td[data-label="Cepeda"]{border-right:1px solid var(--line)}
+  .t-bin td.score::before{content:attr(data-label);display:block;font-family:"Archivo",sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.05em;font-size:11px;margin-bottom:4px}
+  .t-bin td[data-label="Cepeda"]::before{color:var(--cep-ink)}
+  .t-bin td[data-label="Espriella"]::before{color:var(--esp-ink)}
+  .t-bin td[data-label="Justificacion"]{padding:12px 16px 14px;border-top:1px solid var(--line);background:var(--paper-2);font-size:13.5px!important;line-height:1.45}
+  .t-bin td[data-label="Justificacion"]::before{content:"Por que";display:block;font-family:"Archivo",sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.05em;font-size:11px;color:var(--ink-soft);margin-bottom:5px}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="wrap">
+  <div class="brand"><span class="dot"></span>COLOMBIA DECIDE 2026</div>
+  <nav class="navlinks"><a href="#calc">Calculadora</a><a href="#resumen">Resumen visual</a><a href="#posturas">Posturas</a><a href="#trayectoria">Trayectorias</a></nav>
+</div></div>
+
+<header class="hero"><div class="wrap">
+  <div class="datespill"><span class="pulse"></span> Segunda vuelta &middot; 21 de junio de 2026</div>
+  <h1><span class="a">Cepeda</span><span class="vs">frente a</span><span class="b">De la Espriella</span></h1>
+  <div class="summary">
+    <div class="col cep">
+      <div class="nm">Ivan Cepeda</div>
+      <div class="pty">Pacto Historico &middot; Izquierda</div>
+      <p>Construyo su carrera como <span class="hl">defensor de victimas</span> del conflicto armado, facilitador de los procesos de paz y senador. Fue la victima y testigo cuyo caso termino con el expresidente <span class="hl">Alvaro Uribe condenado en primera instancia</span> (y luego absuelto).</p>
+    </div>
+    <div class="col esp">
+      <div class="nm">Abelardo de la Espriella</div>
+      <div class="pty">Defensores de la Patria &middot; Derecha</div>
+      <p>Construyo fama y fortuna como <span class="hl">abogado penalista</span> defendiendo a parapoliticos, al estafador de DMG, a Alex Saab, a <span class="hl">figuras senaladas de narcotrafico</span> y a celebridades. Tambien defendio victimas como Rosa Elvira Cely y Natalia Ponce de Leon.</p>
+    </div>
+  </div>
+</div></header>
+
+<!-- 01 · CALCULADORA -->
+<section id="calc"><div class="wrap">
+  <div class="calc-lead rv">
+    <span class="badge">&#9733; Empieza aqui</span>
+    <h2>&iquest;Con quien coincides tu?</h2>
+    <p>Responde 23 preguntas sobre propuestas y trayectoria. No te decimos a quien corresponde cada opcion hasta el final, para no influirte. La balanza decide.</p>
+  </div>
+  <div class="calc-shell rv">
+    <div class="calc-top">
+      <div class="balance" aria-hidden="true">
+        <svg width="124" height="66" viewBox="0 0 124 66" id="balanceSvg">
+          <line x1="62" y1="7" x2="62" y2="15" stroke="var(--ink)" stroke-width="2.6"/><circle cx="62" cy="7" r="3.6" fill="var(--ink)"/>
+          <g id="beam" style="transform-origin:62px 15px;transition:transform .55s cubic-bezier(.2,.85,.25,1)">
+            <line x1="18" y1="15" x2="106" y2="15" stroke="var(--ink)" stroke-width="2.8"/>
+            <line x1="18" y1="15" x2="18" y2="31" stroke="var(--cep)" stroke-width="2.2"/>
+            <path d="M7 31 L29 31 L24 44 Q18 49 12 44 Z" fill="var(--cep-light)" stroke="var(--cep)" stroke-width="1.8"/>
+            <line x1="106" y1="15" x2="106" y2="31" stroke="var(--esp)" stroke-width="2.2"/>
+            <path d="M95 31 L117 31 L112 44 Q106 49 100 44 Z" fill="var(--esp-light)" stroke="var(--esp)" stroke-width="1.8"/>
+          </g>
+          <rect x="45" y="54" width="34" height="7" rx="2.5" fill="var(--line-strong)"/><rect x="52" y="47" width="20" height="9" fill="var(--line-strong)"/>
+        </svg>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-meta"><span id="qcount">Pregunta 1 de 23</span><span id="pctlabel">0%</span></div>
+        <div class="progress"><div class="fill" id="pfill"></div></div>
+        <div class="tally"><span class="t tc" id="tcep">Opcion A &middot; 0</span><span class="t te" id="tesp">Opcion B &middot; 0</span></div>
+      </div>
+    </div>
+    <div class="qstage" id="qstage">
+      <div class="qcat" id="qcat"></div>
+      <div class="qtext" id="qtext">Cargando...</div>
+      <div class="opts" id="opts"></div>
+      <div class="qnav"><button id="back" disabled>&#8592; ATRAS</button><button class="skip" id="skip">No estoy seguro, saltar</button><button id="fwd" disabled>SIGUIENTE &#8594;</button></div>
+    </div>
+    <div class="results" id="results">
+      <div class="res-top">
+        <div class="res-eyebrow">Tu candidato mas afin es</div>
+        <div class="res-name" id="resName">&mdash;</div>
+        <div class="res-score" id="resScore"></div>
+      </div>
+      <div class="reasons">
+        <h4>El desglose</h4>
+        <p class="rsub">Tus respuestas, una por una, con el candidato al que se alineo cada una.</p>
+        <div id="reasonList"></div>
+      </div>
+      <div class="res-actions"><button class="btn ghost" id="restart">&#8634; Volver a empezar</button><a class="btn" href="#posturas">Ver posturas en detalle &#8594;</a></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- 02 · RESUMEN VISUAL -->
+<section id="resumen"><div class="wrap">
+  <div class="sec-head rv"><span class="num">02</span><h2>Resumen visual</h2><p>Lo esencial de toda la investigacion en tarjetas para deslizar y compartir. Cada una resume un pedazo de los analisis que estan mas abajo.</p></div>
+  <div class="carousel-outer rv"><div class="carousel" id="carousel">
+    <article class="post accent-cep"><span class="tag">La eleccion</span><h3>Dos Colombias en una papeleta</h3><p class="sub">21 de junio de 2026 &middot; segunda vuelta</p><div class="body"><div class="vsrow"><div class="c"><div class="h">Cepeda</div>Profundizar reformas sociales, paz negociada, transicion energetica y derechos civiles.</div><div class="e"><div class="h">De la Espriella</div>Giro radical estilo Bukele/Milei: mano dura, menos Estado, valores conservadores.</div></div></div><div class="foot"><span>Colombia Decide 2026</span><span>01 / 07</span></div></article>
+    <article class="post"><span class="tag">De donde vienen</span><h3>Dos caminos opuestos</h3><div class="body"><ul><li><span class="yr">Cep.</span> 30 anos defendiendo victimas del conflicto armado: fundo el MOVICE (Movimiento de Victimas), facilito los procesos de paz y litigo el caso que llevo a Uribe a juicio.</li><li><span class="yr">Esp.</span> 20 anos como abogado penalista: defendio parapoliticos, al creador de la piramide DMG, a Alex Saab y a victimas (gratis).</li></ul></div><div class="foot"><span>Dos trayectorias, veinte anos</span><span>02 / 07</span></div></article>
+    <article class="post"><span class="tag">&iquest;A quien defendio?</span><h3>El abogado y sus clientes</h3><p class="sub">De la Espriella, 20 anos de litigio</p><div class="body"><ul><li><span class="yr">DMG</span> David Murcia, piramide con 193.302 afectados reconocidos.</li><li><span class="yr">Saab</span> Senalado por EE.UU. como testaferro de Maduro.</li><li><span class="yr">AUC</span> Parapoliticos condenados: Arias, Pineda, Maloof.</li><li><span class="yr">Pro</span> Tambien victimas: Rosa Elvira Cely y Natalia Ponce (gratis).</li></ul></div><div class="foot"><span>Sin condenas ni sanciones</span><span>03 / 07</span></div></article>
+    <article class="post accent-esp"><span class="tag">El eje judicial</span><h3>Cepeda frente a Uribe</h3><p class="sub">13 anos de pleito que se invirtio</p><div class="body"><ul><li><span class="yr">2012</span> Uribe denuncia a Cepeda por manipular testigos.</li><li><span class="yr">2018</span> La Corte archiva contra Cepeda e investiga a Uribe.</li><li><span class="yr">2025</span> Uribe: condenado y luego absuelto. Hoy en casacion.</li></ul></div><div class="foot"><span>Ninguna decision es definitiva</span><span>04 / 07</span></div></article>
+    <article class="post"><span class="tag">Propuestas</span><h3>En que chocan</h3><div class="body"><div class="vsrow"><div class="c"><div class="h">Cepeda</div>No al <a href="https://es.wikipedia.org/wiki/Fracturaci%C3%B3n_hidr%C3%A1ulica" target="_blank" rel="noopener" style="color:var(--cep-ink)">fracking</a> &middot; paz negociada &middot; mantener la JEP (Jurisdiccion Especial para la Paz) &middot; derechos LGBTI &middot; cannabis regulado.</div><div class="e"><div class="h">De la Espriella</div>Si al fracking &middot; mano dura &middot; eliminar la JEP &middot; Estado 40% mas chico &middot; familia tradicional &middot; armas civiles.</div></div></div><div class="foot"><span>Cara a cara &middot; 17 ejes abajo</span><span>05 / 07</span></div></article>
+    <article class="post"><span class="tag">Respaldos</span><h3>Quien apoya a quien</h3><div class="body"><div class="vsrow"><div class="c"><div class="h">Con Cepeda</div>Pacto Historico, Alianza Verde, Roy Barreras, Quintero, Bolivar, Pedraza.</div><div class="e"><div class="h">Con De la Espriella</div>Centro Democratico, Cambio Radical, conservadores, clan Char, Uribe, Trump.</div></div><p class="sub" style="margin-top:12px">El centro (Lopez, Fajardo, Oviedo) no se caso con ninguno.</p></div><div class="foot"><span>Mapa completo abajo</span><span>06 / 07</span></div></article>
+    <article class="post accent-cep"><span class="tag">Tu turno</span><h3>&iquest;Y tu con quien vas?</h3><p class="sub">Responde y la balanza decide</p><div class="body"><p style="font-size:16px">23 preguntas sobre propuestas y trayectoria. Al final ves tu candidato afin y la razon detras de cada punto.</p></div><div class="foot"><a href="#calc" style="color:var(--cep-ink);text-decoration:none;font-weight:800">Abrir calculadora &#8593;</a><span>07 / 07</span></div></article>
+  </div>
+  <div class="cbar"><div class="arrows"><button id="prev" aria-label="Anterior">&#8249;</button><button id="next" aria-label="Siguiente">&#8250;</button></div><div class="dots" id="dots"></div><span class="hint">Desliza &#8594;</span></div>
+</div></div></section>
+
+<!-- 03 · POSTURAS -->
+<section id="posturas"><div class="wrap">
+  <div class="sec-head rv"><span class="num">03</span><h2>Cara a cara: posturas y propuestas</h2><p>Comparacion lado a lado en los principales ejes de politica publica, segun programas, entrevistas y debates de campana.</p></div>
+  <div class="tbl-hint">&#8596; Desliza la tabla horizontalmente</div>
+  <div class="scroller rv"><table class="t-post"><thead><tr><th>Eje</th><th class="cep">Ivan Cepeda</th><th class="esp">Abelardo de la Espriella</th></tr></thead><tbody id="postBody"></tbody></table></div>
+  <div class="subsec rv"><h3>Puntajes <span class="b">binarios</span> &middot; 1 = a favor &middot; 0 = en contra</h3><p class="sd">Las mismas posturas que alimentan la calculadora, con fuente. Simplifican matices: ante una postura ambigua se prioriza la evidencia mas reciente.</p><div class="tbl-hint">&#8596; Desliza la tabla</div><div class="scroller"><table class="t-bin"><thead><tr><th>Pregunta</th><th class="cep" style="text-align:center">Cepeda</th><th class="esp" style="text-align:center">Espriella</th><th>Justificacion</th></tr></thead><tbody id="binBody"></tbody></table></div></div>
+</div></section>
+
+<!-- 04 · TRAYECTORIAS -->
+<section id="trayectoria"><div class="wrap">
+  <div class="sec-head rv"><span class="num">04</span><h2>Dos trayectorias, veinte anos</h2><p>Hitos relevantes de las ultimas dos decadas. Para Cepeda, su trabajo de paz, legislativo y de victimas; para De la Espriella, a quien defendio y por que.</p></div>
+  <div class="tbl-hint">&#8596; Desliza la tabla</div>
+  <div class="scroller rv"><table class="t-time"><thead><tr><th>Ano</th><th class="cep">Ivan Cepeda</th><th class="esp">Abelardo de la Espriella</th></tr></thead><tbody id="timeBody"></tbody></table></div>
+  <div class="subsec rv"><h3>Clientes notables de De la Espriella &middot; <span class="b">estatus probatorio</span></h3><p class="sd">Defender a un imputado es un derecho constitucional. De la Espriella no tiene condenas ni sanciones; las acusaciones de nexos paramilitares en su contra derivaron en investigaciones precluidas (2009 y 2014).</p><div class="clients" id="clientGrid"></div></div>
+  <div class="subsec rv"><h3>El caso Uribe&ndash;Cepeda &middot; <span class="b">cronologia</span></h3><ul class="chrono" id="chrono"></ul></div>
+</div></section>
+
+
+<!-- 06 · FUENTES -->
+<section id="fuentes"><div class="wrap">
+  <div class="sec-head rv"><span class="num">05</span><h2>Fuentes</h2><p>Medios reconocidos y documentos publicos usados en la investigacion.</p></div>
+  <div class="srcgrid rv">
+    <p><b>Americas Quarterly</b> &mdash; perfil del ascenso de De la Espriella. <a href="https://www.americasquarterly.org/article/colombias-bukele-abelardo-de-la-espriella-surges-ahead/">enlace</a></p>
+    <p><b>El Colombiano</b> &mdash; clientes y trayectoria. <a href="https://www.elcolombiano.com/colombia/perfil-de-abelardo-de-la-espriella-candidato-presidencia-colombia-GH36646145">enlace</a></p>
+    <p><b>La Silla Vacia</b> &mdash; propuestas de De la Espriella; perfiles de Cepeda. <a href="https://www.lasillavacia.com/silla-nacional/las-propuestas-bomba-de-abelardo-de-la-espriella/">enlace</a></p>
+    <p><b>Cambio</b> &mdash; posturas; reto fiscal; perfiles de investigacion. <a href="https://cambiocolombia.com/poder/articulo/2026/6/el-debate-sobre-las-posturas-antiderechos-de-abelardo-de-la-espriella">enlace</a></p>
+    <p><b>El Tiempo</b> &mdash; encuesta AtlasIntel segunda vuelta. <a href="https://www.eltiempo.com/politica/elecciones-colombia-2026/encuesta-atlas-intel-abelardo-de-la-espriella-52-2-ivan-cepeda-44-5-para-la-segunda-vuelta-del-21-de-junio-3563538">enlace</a></p>
+    <p><b>Portafolio</b> &mdash; estrategia economica de Cepeda. <a href="https://www.portafolio.co/economia/gobierno/el-asesor-detras-de-la-estrategia-economica-de-ivan-cepeda-y-su-vision-sobre-la-crisis-fiscal-ecopetrol-y-banrep-496429">enlace</a></p>
+    <p><b>Dejusticia</b> &mdash; analisis del proceso Uribe-Cepeda.</p>
+    <p><b>ColombiaCheck</b> &mdash; verificaciones sobre narrativas de ambos candidatos.</p>
+    <p><b>Tambien:</b> El Espectador, Semana, CNN en Espanol, Infobae, Reuters, Registraduria Nacional, Corte IDH, Diario Oficial.</p>
+  </div>
+</div></section>
+
+<!-- 07 · COMO LEER -->
+<section class="disc"><div class="wrap">
+  <div class="sec-head rv"><span class="num">06</span><h2>Como leer esto</h2></div>
+  <div class="rv">
+    <p><strong>Esta pagina no te dice por quien votar.</strong> Es una herramienta para ordenar informacion. La calculadora mide coincidencia entre tus respuestas y las posturas documentadas de cada candidato; coincidir no es lo mismo que acertar, y un solo eje puede pesar mas para ti que diez.</p>
+    <p><strong>Distingue acusacion de hecho probado.</strong> Las acusaciones de nexos paramilitares contra De la Espriella no derivaron en condena (fueron precluidas). El caso contra Uribe tuvo condena en primera instancia y absolucion en segunda; sigue en casacion.</p>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="brand"><span class="dot"></span>COLOMBIA DECIDE 2026</div>
+  <p><a href="https://github.com/jceg" target="_blank" rel="noopener" style="color:var(--ink-soft);text-decoration:none;font-size:11px;letter-spacing:.06em">github.com/jceg</a></p>
+</div></footer>
+
+<script>
+var QUESTIONS=[
+  {cat:"Energia y ambiente",a:{t:"No al fracking (fracturacion hidraulica para extraer petroleo): proteger el agua y el ambiente.",who:"cep"},b:{t:"Si al fracking: aprovechar el petroleo y el gas para generar empleo y crecimiento.",who:"esp"}},
+  {cat:"Paz y conflicto",a:{t:"Negociar con los grupos armados para desmovilizarlos y construir paz.",who:"cep"},b:{t:"Con los criminales no se negocia: hay que someterlos a la justicia.",who:"esp"}},
+  {cat:"Justicia transicional",a:{t:"Mantener la JEP (Jurisdiccion Especial para la Paz) como parte del Acuerdo de Paz de 2016.",who:"cep"},b:{t:"Eliminar la JEP: es un tribunal que no funciona.",who:"esp"}},
+  {cat:"Derechos reproductivos",a:{t:"Mantener el derecho al aborto legal hoy vigente (despenalizacion).",who:"cep"},b:{t:"Restringir el aborto; postura provida.",who:"esp"}},
+  {cat:"Seguridad",a:{t:"Seguridad humana: enfoque social y territorial, no medir exito por capturas.",who:"cep"},b:{t:"Mano dura: megacarceles estilo Bukele y operativos contundentes.",who:"esp"}},
+  {cat:"Modelo economico",a:{t:"Un Estado mas activo para reducir la desigualdad y proteger la economia popular.",who:"cep"},b:{t:"Reducir el tamano del Estado en un 40% y desregular (modelo libertario).",who:"esp"}},
+  {cat:"Transicion energetica",a:{t:"Acelerar la transicion energetica y reducir la dependencia del petroleo.",who:"cep"},b:{t:"El petroleo y el gas son el motor: explotar hidrocarburos al maximo.",who:"esp"}},
+  {cat:"Reformas sociales",a:{t:"Defender y profundizar las reformas recientes de salud, pensiones y trabajo.",who:"cep"},b:{t:"Frenar o revertir esas reformas; el motor es la empresa privada.",who:"esp"}},
+  {cat:"Armas",a:{t:"Mantener el monopolio estatal de las armas.",who:"cep"},b:{t:"Permitir el porte legal de armas a civiles idoneos.",who:"esp"}},
+  {cat:"Politica exterior",a:{t:"Politica exterior autonoma y multilateral, con reconocimiento de Palestina.",who:"cep"},b:{t:"Alianza estrecha con Estados Unidos (Trump) e Israel.",who:"esp"}},
+  {cat:"Politica de drogas",a:{t:"Regular y legalizar el cannabis y sustituir cultivos de forma voluntaria.",who:"cep"},b:{t:"Fumigacion aerea con glifosato, erradicacion forzosa y extradicion.",who:"esp"}},
+  {cat:"Derechos LGBTI",a:{t:"Ampliar y proteger los derechos de la poblacion LGBTI.",who:"cep"},b:{t:"Defender la familia tradicional frente a la 'ideologia de genero'.",who:"esp"}},
+  {cat:"Organismos internacionales",a:{t:"Permanecer en la ONU (Naciones Unidas), la OEA (Organizacion de Estados Americanos) y el sistema interamericano de derechos humanos.",who:"cep"},b:{t:"Salir de los organismos internacionales que limiten la soberania.",who:"esp"}},
+  {cat:"Impuestos y gasto",a:{t:"Sostener el gasto social aunque implique un ajuste fiscal gradual.",who:"cep"},b:{t:"Recortar el Estado y el gasto antes que subir impuestos.",who:"esp"}},
+  {cat:"Glifosato",a:{t:"Prohibir el glifosato: hay alternativas menos daninas para las comunidades.",who:"cep"},b:{t:"Usar glifosato y bioherbicidas para destruir cultivos ilicitos.",who:"esp"}},
+  {cat:"Extradicion",a:{t:"Rechazar la extradicion unilateral y la certificacion de EE.UU.",who:"cep"},b:{t:"La extradicion es una herramienta clave contra el narcotrafico.",who:"esp"}},
+  {cat:"Corrupcion",a:{t:"Sistema Nacional contra la Macrocorrupcion y unidad especial en la Fiscalia.",who:"cep"},b:{t:"Bloque de busqueda anticorrupcion; extincion de dominio expres; blockchain en contratacion.",who:"esp"}},
+  {cat:"Perfil del lider",a:{t:"Prefiero experiencia politica y legislativa probada (senador desde 2010).",who:"cep"},b:{t:"Prefiero un 'outsider' de afuera de la politica tradicional.",who:"esp"}},
+  {cat:"Trayectoria y valores",a:{t:"Valoro una vida dedicada a la defensa de victimas y los derechos humanos.",who:"cep"},b:{t:"Valoro el exito profesional y el derecho de todo acusado a un buen abogado.",who:"esp"}},
+  {cat:"Procesos de paz",a:{t:"Valoro que un candidato haya sido facilitador directo de los procesos de paz.",who:"cep"},b:{t:"No considero la participacion en procesos de paz como un merito relevante.",who:"esp"}},
+  {cat:"El caso Uribe",a:{t:"El proceso judicial contra Alvaro Uribe fue un acto legitimo de la justicia.",who:"cep"},b:{t:"El proceso contra Uribe fue una persecucion politica.",who:"esp"}},
+  {cat:"Modelo internacional",a:{t:"Colombia debe mirar hacia los paises progresistas de la region (Mexico, Brasil).",who:"cep"},b:{t:"Colombia debe seguir el modelo de Bukele, Milei o Trump.",who:"esp"}}
+];
+var POSTURAS=[
+  ["Modelo economico","'Economia social de mercado'; mas Estado para atacar la desigualdad; apoyo a microempresa y economia popular; respeta propiedad privada y Banco de la Republica.","Modelo libertario (referentes Milei, Singapur, Corea del Sur); meta de 7% de crecimiento; desregulacion masiva ('una entra, dos salen')."],
+  ["Impuestos y fiscal","Reducir el deficit sin tocar el gasto social; 'pacto fiscal y productivo'; progresividad; lucha contra macrocorrupcion para recuperar ingresos.","Ajuste fiscal de $70 billones; eliminar el 4x1000; reducir el Estado 40% (ahorro de $25-30 billones); pasar de 19 a 10 ministerios; ~700.000 cargos menos."],
+  ["Seguridad","'Seguridad humana' y estrategia territorial diferenciada; dignificar la Fuerza Publica; rechaza 'militarizar la sociedad'.","'Mano dura' estilo Bukele; 7-10 megacarceles; 'Plan Colombia II'; bombardeos a campamentos; bloque de busqueda contra extorsion."],
+  ["Porte de armas","No respalda el porte civil (defiende el monopolio estatal de la fuerza).","A favor del porte legal para civiles 'idoneos': 'una ciudadania decente armada es complemento de la seguridad'."],
+  ["Paz y conflicto","'Paz integral'; implementar el Acuerdo de 2016; pedir prorroga de 4 anos a la ONU (Naciones Unidas); retomar mesa con el ELN (Ejercito de Liberacion Nacional). Fue facilitador con las FARC (guerrilla, hoy desmovilizada), el ELN y el Clan del Golfo.","Clausura la 'paz total' ('traicion a la patria'); 'con los criminales no habra negociacion'; sometimiento a la justicia ordinaria."],
+  ["JEP (Jurisdiccion Especial para la Paz)","La defiende como parte del Acuerdo de Paz.","Promete eliminarla: 'una farsa' / 'tribunal para lavar las manos a las FARC'."],
+  ["Politica de drogas","Ruptura con el prohibicionismo: sustitucion voluntaria; prohibir glifosato; legalizacion regulada de cannabis (incluido recreativo), coca y amapola.","Confrontacion frontal: destruir 330.000 hectareas con fumigacion aerea (glifosato/bioherbicidas), erradicacion, extincion de dominio expres y extradicion."],
+  ["Energia y ambiente","Transicion energetica 'justa'; NO al <a href='https://es.wikipedia.org/wiki/Fracturaci%C3%B3n_hidr%C3%A1ulica' target='_blank' rel='noopener' style='color:var(--cep-ink)'>fracking</a> (fracturacion hidraulica, su unica 'linea roja'); Ecopetrol como empresa multienergetica.","A favor del fracking ('palanca estrategica'); 150.000 empleos en hidrocarburos; mineria organizada."],
+  ["Salud","Profundizar la reforma a la salud; Equipos Basicos de Salud; fortalecer el hospital publico.","No desmonta el modelo; plan de choque de $10 billones en 90 dias; liquidar EPS (Entidades Promotoras de Salud) que no cumplan; alianzas publico-privadas."],
+  ["Pensiones y trabajo","Defender y profundizar las reformas pensional y laboral; ampliar Colombia Mayor de 3 a 5 millones de beneficiarios.","Critico de las reformas; enfoque en empresa privada y reduccion del Estado."],
+  ["Reforma agraria","'Revolucion agraria': entregar 1 millon de hectareas; sistema nacional de cuidado; renta ciudadana/joven.","Programas focalizados (madres cabeza de familia $600.000/mes); vivienda con credito al 2% a 30 anos ('Pais de propietarios')."],
+  ["Aborto","Defiende la despenalizacion vigente (sentencia C-055/2022, IVE &mdash;Interrupcion Voluntaria del Embarazo&mdash; hasta semana 24); compromete 'el derecho a decidir' en su programa.","'Provida' ('Yo soy provida, pero la ley lo permite'); su entorno impulso referendos antiaborto; su formula: 'Nunca he estado de acuerdo con el aborto'."],
+  ["Derechos LGBTI","A favor; defiende matrimonio igualitario; prohibir 'terapias de conversion'; 'no puede haber funcionarios homofobos'.","Defiende la 'familia tradicional'; combate la 'ideologia de genero'; dice respetar la jurisprudencia pero Caribe Afirmativo advierte 'potenciales retrocesos'."],
+  ["Migracion","No incluye un plan migratorio especifico; apuesta por integracion regional y solucion diplomatica.","Discurso duro: expulsar/deportar migrantes irregulares; relacion con Venezuela coordinada con EE.UU."],
+  ["Relaciones internacionales","Politica exterior 'autonoma' y multilateral; reconocimiento de Palestina; no intervencion militar.","Alianza con EE.UU. (Trump) e Israel (embajada a Jerusalen); propone salir de la ONU, la OEA y el Sistema Interamericano de Derechos Humanos."],
+  ["Reformas institucionales","Retiro la propuesta de constituyente; 'gran acuerdo nacional'; eliminar el CNE (Consejo Nacional Electoral) y crear corte electoral; descarta reeleccion.","'Patriotismo constitucional'; 90 decretos en sus primeros dias; rechaza la constituyente."],
+  ["Corrupcion","Sistema Nacional contra la Macrocorrupcion; Unidad en la Fiscalia; tipificar 'gran corrupcion'.","Bloque de busqueda anticorrupcion liderado por el; extincion de dominio expres; contratacion publica via blockchain a 2030."]
+];
+var BINARY=[
+  ["Esta EN CONTRA del <a href='https://es.wikipedia.org/wiki/Fracturaci%C3%B3n_hidr%C3%A1ulica' target='_blank' rel='noopener'>fracking</a> (fracturacion hidraulica)?","1","0","Cepeda: 'unica linea roja, no al fracking'. De la Espriella lo respalda como 'palanca estrategica'. (El Tiempo, La Silla Vacia)"],
+  ["Apoya la paz negociada / los acuerdos?","1","0","Cepeda continua la 'paz integral'. De la Espriella clausura la 'paz total'. (Infobae, Semana)"],
+  ["Defiende la JEP (Jurisdiccion Especial para la Paz)?","1","0","Cepeda la defiende; De la Espriella promete eliminarla. (La Silla Vacia)"],
+  ["Apoya el aborto legal?","1","0","Cepeda defiende la C-055/2022; De la Espriella es 'provida'. (Cambio)"],
+  ["Apoya megacarceles estilo Bukele?","0","1","Propuesta central de De la Espriella; Cepeda rechaza el enfoque punitivo. (La Silla Vacia)"],
+  ["Apoya la transicion energetica?","1","0","Cepeda: transicion 'justa'; De la Espriella apuesta por hidrocarburos. (Portafolio)"],
+  ["Apoya las reformas sociales recientes?","1","0","Cepeda promete defenderlas y profundizarlas; De la Espriella las critica. (Semana)"],
+  ["Es pro-mercado por encima del Estado?","0","1","De la Espriella reduce el Estado 40%; Cepeda lo amplia. (Cambio)"],
+  ["Relaciones estrechas con EE.UU. (Trump)?","0","1","De la Espriella se alinea con Trump; Cepeda critica la injerencia. (El Tiempo)"],
+  ["Apoya los derechos LGBTI?","1","0","Cepeda defiende la igualdad juridica; De la Espriella la 'familia tradicional'. (Semana, Cambio)"],
+  ["Apoya la mano dura en seguridad?","0","1","De la Espriella: bombardeos y megacarceles; Cepeda: 'seguridad humana'. (Infobae)"],
+  ["Apoya el porte de armas civil?","0","1","Eje de campana de De la Espriella; Cepeda defiende el monopolio estatal. (Infobae, Semana)"],
+  ["Apoya legalizar/regular el cannabis?","1","0","Cepeda propone regularlo; De la Espriella opta por persecucion. (Semana)"],
+  ["Prohibiria el glifosato?","1","0","Cepeda lo prohibiria; De la Espriella lo usaria en fumigacion. (El Espectador, Portafolio)"],
+  ["Mantendria a Colombia en la ONU / OEA / CIDH (Corte Interamericana de DD.HH.)?","1","0","De la Espriella propone salir; Cepeda defiende el multilateralismo. (El Espectador)"],
+  ["Rechaza la extradicion unilateral?","1","0","Cepeda la rechaza; De la Espriella la incluye como herramienta. (Portafolio)"],
+  ["Reduciria drasticamente el Estado?","0","1","De la Espriella lo reduce 40%; Cepeda hace 'austeridad' sin desmantelarlo. (Cambio, La Silla Vacia)"]
+];
+var TIMELINE=[
+  ["2003-05","Funda su firma (2002) y la Fundacion Iniciativas por la Paz (FIPAZ, 2004), que defendia el Acuerdo de Ralito con los paramilitares.","Regresa del exilio en Francia y funda el MOVICE (Movimiento de Victimas de Crimenes de Estado), red de 17 organizaciones."],
+  ["2007","Defiende a congresistas de la parapolitica (Arias, Pineda, Maloof): aliados de las AUC (Autodefensas Unidas de Colombia), casi todos condenados.","Recibe el Premio Roger Baldwin por derechos humanos."],
+  ["2008","Defiende 3 meses a David Murcia (DMG), piramide con 193.302 afectados; renuncia al caso.","Lidera la marcha de victimas del paramilitarismo (mas de 1 millon de personas)."],
+  ["2010","Honorarios de los primos Nule (condenados por el 'carrusel'). 'Tuso' Sierra lo senala (y se retracta).","Elegido a la Camara. La Corte Interamericana de DD.HH. declara al Estado responsable del asesinato de su padre."],
+  ["2012","Defiende gratis a la familia de Rosa Elvira Cely (feminicidio).","Debate sobre nexos de Uribe con paramilitarismo. Uribe lo denuncia. Facilitador del proceso con las FARC (guerrilla, hoy desmovilizada)."],
+  ["2013-14","Defiende a Alex Saab por lavado (~2013-2019). Defiende gratis a Natalia Ponce de Leon (2014).","Elegido senador (2014); coautor de la Ley 1719 (victimas de violencia sexual). Facilitador con el ELN (Ejercito de Liberacion Nacional)."],
+  ["2016","Litigante mediatico.","Pieza clave del Acuerdo con las FARC; autor de las 16 curules de paz; campana por el 'Si'."],
+  ["2018","Defiende al exmagistrado Pretelt (condenado por corrupcion en 2019).","La Corte archiva contra Cepeda y abre proceso contra Uribe. Reelegido senador."],
+  ["2020","Representa a Uribe en pleitos de honra (serie 'Matarife').","La Corte ordena detencion domiciliaria de Uribe; el caso pasa a justicia ordinaria."],
+  ["2024","Asiste a la posesion de Bukele; admira a Milei. Se muda a Florencia, Italia.","La Fiscalia acusa formalmente a Uribe; el caso va a juicio."],
+  ["2025","Regresa 'para salvar la patria'; registra Defensores de la Patria; llena el Movistar Arena (~16.000 personas).","Uribe condenado (julio) y absuelto (octubre). Gana la consulta de su coalicion con 65,13%."],
+];
+var CLIENTS=[
+  ["David Murcia (DMG)","cond","Creador de la piramide DMG (193.302 afectados reconocidos); condenado por captacion ilegal y lavado; extraditado a EE.UU."],
+  ["Alex Saab","acus","Empresario senalado por EE.UU. como testaferro de Maduro; lavado de activos. Defendido ~2013-2019."],
+  ["Jorge Pretelt","cond","Exmagistrado de la Corte Constitucional, condenado por corrupcion (caso Fidupetrol / 'cartel de la toga')."],
+  ["Parapoliticos","cond","Arias, Pineda, Maloof, Caballero: excongresistas condenados por nexos con las AUC (Autodefensas Unidas de Colombia)."],
+  ["Jorge Visbal","cond","Exembajador y expresidente de Fedegan; condenado a 9 anos por concierto para delinquir con las AUC; capturado en enero de 2026."],
+  ["Rosa Elvira Cely","victim","Victima de feminicidio. De la Espriella represento gratis a su familia e impulso la ley de feminicidio."],
+  ["Natalia Ponce de Leon","victim","Victima de ataque con acido. Defensa pro bono; su caso dio nombre a la 'Ley Natalia Ponce'."],
+  ["Senalamiento AUC / FIPAZ","preclu","Acusaciones de exparamilitares (Mancuso, 'Tuso' Sierra) sobre FIPAZ y nexos: la Fiscalia precluyo en 2009 y 2014. Sin condena ni sancion."]
+];
+var CHRONO=[
+  ["2012","Uribe denuncia a Cepeda por presunta manipulacion de testigos."],
+  ["2018 &middot; 16 feb","La Corte Suprema archiva contra Cepeda, abre investigacion contra Uribe y lo reconoce como victima."],
+  ["2020 &middot; 3-4 ago","Detencion domiciliaria de Uribe; renuncia al Senado; el caso pasa a la justicia ordinaria."],
+  ["2021-2023","La Fiscalia pide precluir tres veces; tres juezas y un tribunal lo niegan."],
+  ["2024 &middot; 9 abr","La fiscal Camargo acusa formalmente a Uribe; el caso va a juicio oral."],
+  ["2025 &middot; 28 jul","Condena en primera instancia: 12 anos por fraude procesal y soborno en actuacion penal."],
+  ["2025 &middot; 21 oct","El Tribunal de Bogota absuelve a Uribe; Cepeda anuncia casacion ante la Corte Suprema."]
+];
+
+/* CAROUSEL */
+!function(){var t=document.getElementById("carousel"),d=document.getElementById("dots"),p=[].slice.call(t.children);p.forEach(function(_,i){var e=document.createElement("i");if(!i)e.classList.add("on");e.onclick=function(){g(i)};d.appendChild(e)});var ds=[].slice.call(d.children);function w(){return p[0].getBoundingClientRect().width+20}function g(i){t.scrollTo({left:i*w(),behavior:"smooth"})}function c(){return Math.round(t.scrollLeft/w())}document.getElementById("next").onclick=function(){g(Math.min(c()+1,p.length-1))};document.getElementById("prev").onclick=function(){g(Math.max(c()-1,0))};t.addEventListener("scroll",function(){var x=c();ds.forEach(function(e,i){e.classList.toggle("on",i===x)})},{passive:!0})}();
+
+/* CALCULATOR */
+!function(){var st={i:0,answers:new Array(QUESTIONS.length).fill(null),display:QUESTIONS.map(function(){return Math.random()<.5})};
+var $=function(id){return document.getElementById(id)};
+var elCat=$("qcat"),elText=$("qtext"),elOpts=$("opts"),elCount=$("qcount"),elFill=$("pfill"),elBack=$("back"),elFwd=$("fwd"),elSkip=$("skip"),elTcep=$("tcep"),elTesp=$("tesp"),elPct=$("pctlabel"),beam=$("beam"),stage=$("qstage"),results=$("results");
+var CHK='<svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="var(--paper-2)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+function tal(){var c=0,e=0;st.answers.forEach(function(a){if(a==="cep")c++;else if(a==="esp")e++});return{c:c,e:e}}
+function upd(){var t=tal();elTcep.textContent="Opcion A \xb7 "+t.c;elTesp.textContent="Opcion B \xb7 "+t.e;var tot=t.c+t.e,tilt=tot?(t.e-t.c)/tot:0;beam.style.transform="rotate("+(tilt*9)+"deg)";var ans=st.answers.filter(function(a){return a!==null}).length;var pct=Math.round(ans/QUESTIONS.length*100);elFill.style.width=pct+"%";elPct.textContent=pct+"%"}
+function ren(){var q=QUESTIONS[st.i];elCount.textContent="Pregunta "+(st.i+1)+" de "+QUESTIONS.length;elCat.textContent=q.cat;elText.textContent="\xbfCon cual afirmacion te identificas mas?";elOpts.innerHTML="";var order=st.display[st.i]?[q.a,q.b]:[q.b,q.a];order.forEach(function(opt){var b=document.createElement("button");b.className="opt"+(st.answers[st.i]===opt.who?" sel":"");b.innerHTML='<span class="box">'+CHK+"</span><span>"+opt.t+"</span>";b.onclick=function(){st.answers[st.i]=opt.who;ren();upd();setTimeout(function(){if(st.i<QUESTIONS.length-1){st.i++;ren();upd()}else fin()},240)};elOpts.appendChild(b)});elBack.disabled=st.i===0;elFwd.disabled=st.answers[st.i]===null;elFwd.textContent=st.i===QUESTIONS.length-1?"VER RESULTADO \u2192":"SIGUIENTE \u2192"}
+elBack.onclick=function(){if(st.i>0){st.i--;ren();upd()}};elFwd.onclick=function(){if(st.answers[st.i]!==null){if(st.i<QUESTIONS.length-1){st.i++;ren();upd()}else fin()}};elSkip.onclick=function(){if(st.i<QUESTIONS.length-1){st.i++;ren();upd()}else fin()};
+function fin(){var t=tal(),tot=t.c+t.e,ans=st.answers.filter(function(a){return a!==null}).length;stage.style.display="none";results.classList.add("show");var nm=$("resName"),sc=$("resScore"),w;if(t.c>t.e){w="cep";nm.textContent="Ivan Cepeda";nm.className="res-name cep"}else if(t.e>t.c){w="esp";nm.textContent="Abelardo de la Espriella";nm.className="res-name esp"}else{w="tie";nm.textContent="Empate tecnico";nm.className="res-name tie"}sc.textContent=tot?"Coincides en "+Math.max(t.c,t.e)+" de "+ans+" respuestas"+(w==="tie"?" \u2014 estas justo en la mitad.":"."):"No respondiste ninguna pregunta.";var list=$("reasonList");list.innerHTML="";QUESTIONS.forEach(function(q,idx){var a=st.answers[idx],chosen=a==="cep"?q.a:a==="esp"?q.b:null;var pill=a==="cep"?'<span class="pill cep">Cepeda</span>':a==="esp"?'<span class="pill esp">De la Espriella</span>':'<span class="pill skip">Saltada</span>';var txt=chosen?chosen.t:"No respondiste esta pregunta.";var row=document.createElement("div");row.className="reason";row.innerHTML=pill+'<div><span class="qt">'+q.cat+'</span><span class="rtxt">'+txt+"</span></div>";list.appendChild(row)});results.scrollIntoView({behavior:"smooth",block:"start"})}
+$("restart").onclick=function(){st.i=0;st.answers.fill(null);st.display=QUESTIONS.map(function(){return Math.random()<.5});results.classList.remove("show");stage.style.display="";ren();upd();document.getElementById("calc").scrollIntoView({behavior:"smooth"})};
+ren();upd()}();
+
+/* TABLES */
+!function(){var pb=document.getElementById("postBody");POSTURAS.forEach(function(r){pb.insertAdjacentHTML("beforeend",'<tr><td class="axis" data-label="Eje">'+r[0]+'</td><td data-label="Ivan Cepeda">'+r[1]+'</td><td data-label="A. de la Espriella">'+r[2]+"</td></tr>")});var bb=document.getElementById("binBody");BINARY.forEach(function(r){bb.insertAdjacentHTML("beforeend",'<tr><td data-label="Pregunta">'+r[0]+'</td><td class="score '+(r[1]==="1"?"one":"zero")+'" data-label="Cepeda">'+r[1]+'</td><td class="score '+(r[2]==="1"?"one":"zero")+'" data-label="Espriella">'+r[2]+'</td><td data-label="Justificacion" style="font-size:13.5px;color:var(--ink-soft)">'+r[3]+"</td></tr>")});var tb=document.getElementById("timeBody");TIMELINE.forEach(function(r){tb.insertAdjacentHTML("beforeend",'<tr><td class="yrcell" data-label="Ano">'+r[0]+'</td><td data-label="Ivan Cepeda">'+r[2]+'</td><td data-label="A. de la Espriella">'+r[1]+"</td></tr>")});var cg=document.getElementById("clientGrid");var sl={cond:"Condenado",acus:"Acusado",victim:"Victima (pro bono)",preclu:"Precluido - sin condena"};CLIENTS.forEach(function(c){cg.insertAdjacentHTML("beforeend",'<div class="client"><div class="nm">'+c[0]+'</div><span class="st '+c[1]+'">'+sl[c[1]]+"</span><p>"+c[2]+"</p></div>")});var ch=document.getElementById("chrono");CHRONO.forEach(function(c){ch.insertAdjacentHTML("beforeend","<li><span class='d'>"+c[0]+"</span><br>"+c[1]+"</li>")})}();
+
+/* REVEAL */
+!function(){if(!("IntersectionObserver"in window)){document.querySelectorAll(".rv").forEach(function(el){el.classList.add("in")});return}var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}})},{threshold:.1});document.querySelectorAll(".rv").forEach(function(el){io.observe(el)})}();
+</script>
+</body>
+</html>
